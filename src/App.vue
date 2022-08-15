@@ -2,6 +2,7 @@
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
+    <el-button>哈哈</el-button>
   </nav>
   <router-view />
 </template>
