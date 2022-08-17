@@ -6,6 +6,11 @@ export default new GFLRequest({
   timeout: TIME_OUT,
   interceptors: {
     interceptorRequestSucc: (conf) => {
+      // 携带token的拦截
+      const token = 'c'
+      if (token) {
+        conf.headers.Authorization = `Bearer ${token}`
+      }
       console.log('单个实例-请求成功的拦截')
       return conf
     },
