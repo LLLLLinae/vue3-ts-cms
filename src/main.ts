@@ -9,7 +9,12 @@ import 'element-plus/dist/index.css'
 import request from './service'
 
 createApp(App).use(store).use(router).use(ElementPlus).mount('#app')
-request.get({
-  url: 'http://123.207.32.32:8000/',
-  method: 'get'
-})
+
+request
+  .get({
+    url: '/home/multidata',
+    method: 'get'
+  })
+  .then((res) => {
+    console.log(res)
+  })
