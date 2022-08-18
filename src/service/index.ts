@@ -1,4 +1,4 @@
-import GFLRequest from './request/index'
+import GFLRequest from './request'
 import { BASE_URL, TIME_OUT } from '@/service/request/config'
 
 export default new GFLRequest({
@@ -8,9 +8,9 @@ export default new GFLRequest({
     interceptorRequestSucc: (conf) => {
       // 携带token的拦截
       const token = 'c'
-      if (token) {
-        conf.headers.Authorization = `Bearer ${token}`
-      }
+      // if (token) {
+      //   conf.headers.Authorization = `Bearer ${token}`
+      // }
       console.log('单个实例-请求成功的拦截')
       return conf
     },
