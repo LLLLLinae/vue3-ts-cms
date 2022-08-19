@@ -11,19 +11,19 @@ export default new GFLRequest({
       // if (token) {
       //   conf.headers.Authorization = `Bearer ${token}`
       // }
-      console.log('单个实例-请求成功的拦截')
+      // console.log('单个实例-请求成功的拦截')
       return conf
     },
     interceptorRequestFail: (err) => {
-      console.log('单个实例-请求失败的拦截')
+      // console.log('单个实例-请求失败的拦截')
       console.log(err)
     },
     interceptorResponseSucc: (res) => {
-      console.log('单个实例-响应成功的拦截')
+      // console.log('单个实例-响应成功的拦截')
       return res
     },
     interceptorResponseFail: (err) => {
-      console.log('单个实例-响应失败的拦截')
+      // console.log('单个实例-响应失败的拦截')
       console.log(err)
     }
   }

@@ -51,7 +51,7 @@ class GFLRequest {
     )
     this.instance.interceptors.response.use(
       (res) => {
-        console.log('所有实例-响应成功的拦截')
+        // console.log('所有实例-响应成功的拦截')
 
         // 将loading移除
         this.loading?.close()
@@ -60,7 +60,7 @@ class GFLRequest {
         return res.data
       },
       (err: any) => {
-        console.log('所有实例-响应失败的拦截')
+        // console.log('所有实例-响应失败的拦截')
         // 将loading移除
         this.loading?.close()
         return err
