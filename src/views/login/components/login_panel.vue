@@ -38,7 +38,7 @@ export default defineComponent({
     let currentTab = ref('account')
 
     let onLogin = function () {
-      console.log(account.value)
+      // console.log(account.value)
       if (currentTab.value === 'account') {
         account.value?.accountLogin(remember.value)
       } else {

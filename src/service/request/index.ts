@@ -114,6 +114,10 @@ class GFLRequest {
   get<T>(conf: GFLRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...conf, method: 'GET' })
   }
+
+  post<T>(conf: GFLRequestConfig<T>): Promise<T> {
+    return this.request<T>({ ...conf, method: 'POST' })
+  }
 }
 
 export default GFLRequest
