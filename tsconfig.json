@@ -6,7 +6,7 @@
     "module": "esnext",
     // 严格一些严格的检查(any)
     "strict": true,
-    // 对jsx进行怎么样的处理-保留不转换
+    // 对jsx进行怎么样的处理
     "jsx": "preserve",
     // 辅助的导入功能
     "importHelpers": true,

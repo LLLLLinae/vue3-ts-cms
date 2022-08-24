@@ -34,7 +34,7 @@ class GFLRequest {
     // 2. 所有实例都拦截
     this.instance.interceptors.request.use(
       (conf) => {
-        console.log('所有实例-请求成功的拦截')
+        // console.log('所有实例-请求成功的拦截')
         if (this.showLoading) {
           this.loading = ElLoading.service({
             lock: true,
@@ -45,7 +45,7 @@ class GFLRequest {
         return conf
       },
       (err: any) => {
-        console.log('所有实例-请求失败的拦截')
+        // console.log('所有实例-请求失败的拦截')
         return err
       }
     )
