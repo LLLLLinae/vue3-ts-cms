@@ -2,33 +2,34 @@
   <div class="nav-menu">
     <div class="logo">
       <img class="img" src="~@/assets/img/logo.svg" alt="logo" />
-      <span>Vue3+TS</span>
-      <!--      <span v-if="!collapse" class="title">Vue3+TS</span>-->
+      <span v-if="!collapse" class="title">Vue3+TS</span>
     </div>
     <el-scrollbar>
       <el-menu
-        default-active="2"
+        default-active="38"
         class="el-menu-vertical"
         :collapse="collapse"
         background-color="#0c2135"
         text-color="#b7bdc3"
         active-text-color="#0a60bd"
       >
-        <el-sub-menu v-for="item in menu" :index="item.id">
-          <template v-if="item.type === 1">
-            <el-sub-menu>
-              <template #title>{{ item.name }}</template>
-              <template v-for="childItem in item.children">
-                <el-menu-item :index="childItem.id">
-                  {{ childItem.name }}</el-menu-item
-                >
-              </template>
-            </el-sub-menu>
-          </template>
-          <template v-else>
-            <el-sub-item :index="item.id">{{ item.name }}</el-sub-item>
-          </template>
-        </el-sub-menu>
+        <template v-for="item in menu" :key="item.id">
+          <el-sub-menu v-if="item.type === 1" :index="item.id + ''">
+            <template #title>
+              <i v-if="item.icon" :class="item.icon"></i>
+              <span>{{ item.name }}</span>
+            </template>
+            <template v-for="childItem in item.children" :key="childItem.id">
+              <el-menu-item
+                :index="childItem.id + ''"
+                @click="handleMenuItemClick(childItem)"
+              >
+                {{ childItem.name }}
+              </el-menu-item>
+            </template>
+          </el-sub-menu>
+          <el-sub-item v-else :index="item.id">{{ item.name }}</el-sub-item>
+        </template>
       </el-menu>
     </el-scrollbar>
   </div>
@@ -36,14 +37,26 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import LocalCatch from '@/utils/cache'
 
 export default defineComponent({
+  props: {
+    collapse: {
+      type: Boolean,
+      default: false
+    }
+  },
   setup() {
+    const router = useRouter()
     let menu = LocalCatch.getCache('menu')
+    const handleMenuItemClick = function (v: any) {
+      router.push({ path: v.url ?? '/not-found' })
+    }
     console.log(menu)
     return {
-      menu
+      menu,
+      handleMenuItemClick
     }
   }
 })

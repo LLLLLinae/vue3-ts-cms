@@ -6,6 +6,7 @@ import {
 } from '@/service/login/login'
 
 import localCache from '@/utils/cache'
+import MenuToRouteMap from '@/utils/map-menu'
 import router from '@/router'
 
 import { IAccount, ILoginResult } from '@/service/login/type'
@@ -29,8 +30,13 @@ const LoginModule: Module<ILoginState, IRootState> = {
     setUserInfo(state, payload) {
       state.userInfo = payload
     },
-    setMenus(state, payload) {
+    setMenus(state, payload: any) {
+      console.log(payload)
       state.userMenus = payload
+      const route = MenuToRouteMap(payload)
+      route.forEach((item) => {
+        router.addRoute('main', item)
+      })
     }
   },
   actions: {
