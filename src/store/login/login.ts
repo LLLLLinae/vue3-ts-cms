@@ -6,7 +6,7 @@ import {
 } from '@/service/login/login'
 
 import localCache from '@/utils/cache'
-import MenuToRouteMap from '@/utils/map-menu'
+import MenuToRouteMap from '@/utils/map-menus'
 import router from '@/router'
 
 import { IAccount, ILoginResult } from '@/service/login/type'
@@ -31,7 +31,6 @@ const LoginModule: Module<ILoginState, IRootState> = {
       state.userInfo = payload
     },
     setMenus(state, payload: any) {
-      console.log(payload)
       state.userMenus = payload
       const route = MenuToRouteMap(payload)
       route.forEach((item) => {
@@ -65,7 +64,7 @@ const LoginModule: Module<ILoginState, IRootState> = {
     },
 
     // 从localStorage中读取数据赋值给store
-    loadLocalLogin({ commit }) {
+    loadLocalLogin({ commit, state }) {
       const token = localCache.getCache('token')
       if (token) {
         commit('setToken', token)
@@ -74,10 +73,11 @@ const LoginModule: Module<ILoginState, IRootState> = {
       if (token) {
         commit('setUserInfo', userInfo)
       }
-      const userMenus = localCache.getCache('userMenus')
+      const userMenus = localCache.getCache('menu')
       if (userMenus) {
         commit('setMenus', userMenus)
       }
+      console.log(state)
     }
   }
 }

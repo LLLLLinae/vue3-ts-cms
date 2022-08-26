@@ -1,4 +1,5 @@
 import { RouteRecordRaw } from 'vue-router'
+import { IBreadcrumb } from '@/base-ui/breadcrumb'
 export default function (menu: any[]): RouteRecordRaw[] {
   const routes: RouteRecordRaw[] = []
 
@@ -30,6 +31,25 @@ export default function (menu: any[]): RouteRecordRaw[] {
   }
   _recurseGetRoute(menu)
   return routes
+}
+export function pathMapToMenu(
+  menus: any[],
+  currentPath: string,
+  breadcrumb?: IBreadcrumb[]
+): any {
+  // console.log(menus)
+  for (const item of menus) {
+    if (item.type === 2 && item.url === currentPath) {
+      return item
+    } else {
+      const menu = pathMapToMenu(item.children ?? [], currentPath)
+      if (menu) {
+        breadcrumb?.push({ name: item.name })
+        breadcrumb?.push({ name: menu.name })
+      }
+      return menu
+    }
+  }
 }
 
 //obj.keys 获得相对于../router/main路径，.ts的文件路径的数组

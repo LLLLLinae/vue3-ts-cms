@@ -1,16 +1,22 @@
 <template>
   <div class="user">
     <h2>user</h2>
+    <gfl-form v-bind="searchFormConfig"></gfl-form>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, reactive } from 'vue'
+import GflForm, { IFormItem } from '@/base-ui/form'
+import { searchFormConfig } from './config/seatch.config'
 
 export default defineComponent({
   name: 'user',
+  components: { GflForm },
   setup() {
-    return {}
+    return {
+      searchFormConfig
+    }
   }
 })
 </script>
