@@ -6,7 +6,7 @@ import {
 } from '@/service/login/login'
 
 import localCache from '@/utils/cache'
-import MenuToRouteMap from '@/utils/map-menus'
+import { MenuToRouteMap } from '@/utils/map-menus'
 import router from '@/router'
 
 import { IAccount, ILoginResult } from '@/service/login/type'
@@ -77,7 +77,6 @@ const LoginModule: Module<ILoginState, IRootState> = {
       if (userMenus) {
         commit('setMenus', userMenus)
       }
-      console.log(state)
     }
   }
 }

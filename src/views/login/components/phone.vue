@@ -21,7 +21,7 @@ export default defineComponent({
     let phoneLogin = function (v: boolean) {
       form.value.validate((valid: boolean) => {
         if (valid) {
-          console.log('发送phone登录请求')
+          // console.log('发送phone登录请求')
         }
       })
     }

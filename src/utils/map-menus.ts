@@ -1,6 +1,9 @@
 import { RouteRecordRaw } from 'vue-router'
 import { IBreadcrumb } from '@/base-ui/breadcrumb'
-export default function (menu: any[]): RouteRecordRaw[] {
+
+// 根据用户的菜单生成路由配置对象
+export let firstMenu: any = null
+export function MenuToRouteMap(menu: any[]): RouteRecordRaw[] {
   const routes: RouteRecordRaw[] = []
 
   // 1.获取所有已经定义过的路由映射对象
@@ -23,6 +26,9 @@ export default function (menu: any[]): RouteRecordRaw[] {
         })
         if (route) {
           routes.push(route)
+          if (!firstMenu) {
+            firstMenu = route
+          }
         }
       } else {
         _recurseGetRoute(menuItem.children)
@@ -32,21 +38,23 @@ export default function (menu: any[]): RouteRecordRaw[] {
   _recurseGetRoute(menu)
   return routes
 }
+
+//根据当前路径定位到菜单并获取breadcrumb
+// /main/system/role  -> type === 2 对应menu
 export function pathMapToMenu(
-  menus: any[],
+  userMenus: any[],
   currentPath: string,
   breadcrumb?: IBreadcrumb[]
 ): any {
-  // console.log(menus)
-  for (const item of menus) {
-    if (item.type === 2 && item.url === currentPath) {
-      return item
-    } else {
-      const menu = pathMapToMenu(item.children ?? [], currentPath)
-      if (menu) {
-        breadcrumb?.push({ name: item.name })
+  for (const menu of userMenus) {
+    if (menu.type === 1) {
+      const findMenu = pathMapToMenu(menu.children ?? [], currentPath)
+      if (findMenu) {
         breadcrumb?.push({ name: menu.name })
+        breadcrumb?.push({ name: findMenu.name })
+        return findMenu
       }
+    } else if (menu.type === 2 && menu.url === currentPath) {
       return menu
     }
   }

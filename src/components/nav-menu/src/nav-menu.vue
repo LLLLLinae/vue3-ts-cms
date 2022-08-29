@@ -13,7 +13,7 @@
         text-color="#b7bdc3"
         active-text-color="#0a60bd"
       >
-        <template v-for="item in menu" :key="item.id">
+        <template v-for="item in userMenus" :key="item.id">
           <el-sub-menu v-if="item.type === 1" :index="item.id + ''">
             <template #title>
               <i v-if="item.icon" :class="item.icon"></i>
@@ -37,10 +37,10 @@
 
 <script lang="ts">
 import { defineComponent, computed, ref } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
 import { useStore } from '@/store'
+import { useRouter, useRoute } from 'vue-router'
 
-import { pathMapToMenu } from '@/utils/map-menus'
+import { pathMapToMenu, firstMenu } from '@/utils/map-menus'
 
 export default defineComponent({
   props: {
@@ -60,9 +60,10 @@ export default defineComponent({
     const currentPath = route.path
 
     // data
+    let defaultValue = ref('')
+
     const menu = pathMapToMenu(userMenus.value, currentPath)
-    console.log(menu)
-    const defaultValue = ref(menu.id + '')
+    defaultValue = ref(menu?.id + '')
 
     // event handle
     const handleMenuItemClick = function (v: any) {
