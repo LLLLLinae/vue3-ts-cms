@@ -1,5 +1,5 @@
-import GflBreadcrumd from '@/base-ui/breadcrumb/src/breadcrumd.vue'
+import GflBreadcrumbs from '@/base-ui/breadcrumb/src/breadcrumbs.vue'
 
 export * from './types'
 
-export default GflBreadcrumd
+export default GflBreadcrumbs

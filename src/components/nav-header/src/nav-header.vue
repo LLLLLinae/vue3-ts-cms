@@ -6,22 +6,38 @@
       @click="handleFoldClick"
     ></i>
     <div class="content">
-      <div>面包屑</div>
+      <gfl-breadcrumbs :breadcrumbs="userBreadcrumbs"></gfl-breadcrumbs>
       <user-info />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { useStore } from '@/store'
+import { useRoute } from 'vue-router'
+import { defineComponent, ref, computed } from 'vue'
+
+import GflBreadcrumbs from '@/base-ui/breadcrumb'
+import BreadCrumbs from '@/base-ui/breadcrumb/src/breadcrumbs.vue'
+import { pathMapToMenu, pathMapBreadcrumbs } from '@/utils/map-menus'
+
 import UserInfo from './user-info.vue'
 
 export default defineComponent({
   components: {
-    UserInfo
+    UserInfo,
+    GflBreadcrumbs
   },
   emits: ['foldChange'],
   setup(props, { emit }) {
+    // 面包屑的数据: [{name: , path: }]
+    const store = useStore()
+    const userBreadcrumbs = computed(() => {
+      const menus = store.state.login.userMenus
+      const currentPath = useRoute().path
+      return pathMapBreadcrumbs(menus, currentPath)
+    })
+
     const isFold = ref(false)
     const handleFoldClick = () => {
       isFold.value = !isFold.value
@@ -30,7 +46,8 @@ export default defineComponent({
 
     return {
       isFold,
-      handleFoldClick
+      handleFoldClick,
+      userBreadcrumbs
     }
   }
 })

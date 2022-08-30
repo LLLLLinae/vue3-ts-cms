@@ -1,5 +1,8 @@
 <template>
-  <div class="form">
+  <div class="gfl-form">
+    <div class="header">
+      <slot name="header"></slot>
+    </div>
     <el-form :label-width="labelWidth">
       <el-row>
         <template v-for="item in formItems" :key="item.label">
@@ -14,17 +17,22 @@
               >
                 <el-input
                   :placeholder="item.placeholder"
+                  v-bind="item.otherOptions"
                   :show-password="item.type === 'password'"
                 ></el-input>
               </template>
               <template v-if="item.type === 'select'">
-                <el-select>
+                <el-select
+                  :placeholder="item.placeholder"
+                  v-bind="item.otherOptions"
+                  style="width: 100%"
+                >
                   <el-option
                     v-for="optionsItem in item.options"
-                    :key="optionsItem.id"
-                    :label="optionsItem.label"
+                    :key="optionsItem.value"
                     :value="optionsItem.value"
-                  ></el-option>
+                    >{{ optionsItem.title }}</el-option
+                  >
                 </el-select>
               </template>
               <template v-if="item.type === 'datepicker'">
@@ -38,6 +46,9 @@
         </template>
       </el-row>
     </el-form>
+    <div class="footer">
+      <slot name="footer"></slot>
+    </div>
   </div>
 </template>
 
@@ -77,7 +88,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="less">
-.form {
+.gfl-form {
   padding-top: 22px;
 }
 </style>

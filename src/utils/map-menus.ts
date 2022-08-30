@@ -27,7 +27,7 @@ export function MenuToRouteMap(menu: any[]): RouteRecordRaw[] {
         if (route) {
           routes.push(route)
           if (!firstMenu) {
-            firstMenu = route
+            firstMenu = menuItem
           }
         }
       } else {
@@ -39,7 +39,7 @@ export function MenuToRouteMap(menu: any[]): RouteRecordRaw[] {
   return routes
 }
 
-//根据当前路径定位到菜单并获取breadcrumb
+//根据当前路径定位到菜单
 // /main/system/role  -> type === 2 对应menu
 export function pathMapToMenu(
   userMenus: any[],
@@ -58,6 +58,13 @@ export function pathMapToMenu(
       return menu
     }
   }
+}
+
+// 根据菜单和当前路径获取breadcrumbs
+export function pathMapBreadcrumbs(userMenus: any[], currentPath: string) {
+  const breadcrumbs: IBreadcrumb[] = []
+  pathMapToMenu(userMenus, currentPath, breadcrumbs)
+  return breadcrumbs
 }
 
 //obj.keys 获得相对于../router/main路径，.ts的文件路径的数组
